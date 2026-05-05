@@ -15,6 +15,8 @@ The complete pipeline includes:
 -Model Deployment using Streamlit
 
 ## Project Structure
+
+```bash
 house_price_prediction/
 │
 ├── app/
@@ -66,7 +68,7 @@ house_price_prediction/
 ├── requirements.txt
 ├── README.md
 └── .gitignore
-
+```
 ## Dataset
 
 Dataset: Ames Housing Dataset (Kaggle – House Prices: Advanced Regression Techniques)
