@@ -15,35 +15,48 @@ The complete pipeline includes:
 -Model Deployment using Streamlit
 
 ## Project Structure
-
-HOUSE_PRICE_PREDICTION/
+house_price_prediction/
 │
 ├── app/
-│   └── streamlit_app.py
+│   ├── streamlit_app.py
+│   └── ui_model_training.py
 │
 ├── data/
 │   ├── processed_data/
 │   │   └── model_data.pkl
 │   │
 │   └── raw_data/
-│       ├── data_description.txt
-│       ├── sample_submission.csv
+│       ├── train.csv
 │       ├── test.csv
-│       └── train.csv
+│       ├── sample_submission.csv
+│       └── data_description.txt
 │
 ├── images/
-│   ├── BsmtFinSF1 vs SalePrice.png
-│   ├── Correlation_heatmap.png
-│   ├── GarageArea vs SalePrice.png
-│   ├── GrLivArea vs SalePrice.png
-│   ├── Pairplot.png
-│   ├── SalePrice distribution.png
-│   └── TotalBsmtSF vs SalePrice.png
+│   ├── eda_images/
+│   │   ├── BsmtFinSF1_vs_SalePrice.png
+│   │   ├── Correlation_heatmap.png
+│   │   ├── GarageArea_vs_SalePrice.png
+│   │   ├── GrLivArea_vs_SalePrice.png
+│   │   ├── Pairplot.png
+│   │   ├── SalePrice_distribution.png
+│   │   └── TotalBsmtSF_vs_SalePrice.png
+│   │
+│   └── ui_images/
+│       ├── UI.png
+│       ├── Affordable_House.png
+│       ├── Average_House.png
+│       └── Expensive_House.png
 │
 ├── models/
-│   ├── LassoRegressionModel.pkl
-│   ├── LinearRegressionModel.pkl
-│   └── RidgeRegressionModel.pkl
+│   ├── full_data_models/
+│   │   ├── LinearRegressionModel.pkl
+│   │   ├── RidgeRegressionModel.pkl
+│   │   └── LassoRegressionModel.pkl
+│   │
+│   └── ui_models/
+│       ├── linear_ui_model.pkl
+│       ├── ridge_ui_model.pkl
+│       └── lasso_ui_model.pkl
 │
 ├── src/
 │   ├── datapreprocessing.py
@@ -51,9 +64,12 @@ HOUSE_PRICE_PREDICTION/
 │   └── model_training.py
 │
 ├── requirements.txt
-└── README.md
+├── README.md
+└── .gitignore
 
 ## Dataset
+
+Dataset: Ames Housing Dataset (Kaggle – House Prices: Advanced Regression Techniques)
 
 This project uses the Ames Housing Dataset, which is widely used for regression problems in machine learning.
 
@@ -165,7 +181,8 @@ Libraries used:
 -scikit-learn
 -numpy
 -pandas
--Model Evaluation
+
+## Model Evaluation
 
 Model performance was evaluated using standard regression metrics:
 
@@ -180,21 +197,26 @@ The best performing model was selected for deployment.
 
 ## Model Deployment
 
-The trained model was deployed using Streamlit to build an interactive web application.
+The trained model was deployed using the Streamlit framework to build an interactive web application.
 
-The application allows users to input housing features and receive predicted house prices based on the trained machine learning model.
+The application allows users to input important housing features such as:
 
-This demonstrates how machine learning models can be integrated into a simple user-friendly interface for real-world usage.
+- Overall Quality
+- Ground Living Area
+- Basement Area
+- Year Built
+- Total Bathrooms
+- House Age
+- Lot Area
+- Kitchen Quality
+- Neighborhood
 
--Technologies Used
--Python
--pandas
--numpy
--matplotlib
--seaborn
--scikit-learn
--Streamlit
--Future Improvements
+Based on these inputs, the trained machine learning model predicts the estimated house price.
+
+The application uses a trained Ridge Regression model stored as a serialized pipeline.  
+The pipeline includes both preprocessing (feature scaling and encoding) and the regression model, ensuring that the same transformations used during training are applied during prediction.
+
+This demonstrates how a machine learning model can be integrated into a user-friendly interface for real-world prediction tasks.
 
 Possible improvements for this project include:
 
@@ -202,3 +224,50 @@ Possible improvements for this project include:
 -Trying advanced models like Gradient Boosting and XGBoost
 -Adding more feature engineering techniques
 -Deploying the model using cloud platforms
+
+
+## Model Comparison
+
+Among the tested models, Ridge Regression achieved slightly better performance compared to Linear Regression and Lasso Regression.
+
+This improved performance occurs because Ridge Regression applies L2 regularization, which reduces overfitting by shrinking the magnitude of model coefficients while retaining all features.
+
+In contrast, Lasso Regression uses L1 regularization, which can force some coefficients to become zero and remove certain features. While this can be useful for feature selection, it may reduce predictive performance if important features are removed.
+
+Since the Ames Housing dataset contains several correlated features, Ridge Regression was able to maintain stable predictions while controlling overfitting, leading to slightly better overall performance.
+
+## Running the Application
+
+To run this project locally:
+
+1. Clone the repository
+git clone https://github.com/sitharthan006/House-Price-Prediction-ML.git
+
+
+2. Navigate to the project directory
+
+3. Install dependencies
+pip install -r requirements.txt
+
+4. Run the Streamlit application
+streamlit run app/streamlit_app.py
+
+The application will open in your browser where you can input house features and get price predictions.
+
+## Technologies Used
+
+- Python
+- pandas
+- numpy
+- scikit-learn
+- matplotlib
+- seaborn
+- scipy
+- streamlit
+- ydata-profiling
+
+## Application Interface
+
+Below is the Streamlit application used for predicting house prices.
+
+![House Price Prediction UI](images/ui_images/UI.png)

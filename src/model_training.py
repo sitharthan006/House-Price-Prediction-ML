@@ -10,7 +10,7 @@ from sklearn.metrics import mean_squared_error,r2_score,mean_absolute_error
 import joblib
 from sklearn.model_selection import cross_val_score
 
-df=pd.read_pickle('model_data.pkl')
+df=pd.read_pickle('data\processed_data\model_data.pkl')
 
 x=df.drop(columns=["SalePrice"])
 y=df["SalePrice"]
@@ -117,9 +117,9 @@ metrics("Lasso Regression",y_test,las_pred)
 metrics("Ridge Regression",y_test,rid_pred)
 
 
-joblib.dump(lin_reg,"models/LinearRegressionModel.pkl")
-joblib.dump(las_reg,"models/LassoRegressionModel.pkl")
-joblib.dump(rid_reg,"models/RidgeRegressionModel.pkl")
+joblib.dump(lin_reg,"models/Full_datamodel/LinearRegressionModel.pkl")
+joblib.dump(las_reg,"models/Full_datamodel/LassoRegressionModel.pkl")
+joblib.dump(rid_reg,"models/Full_datamodel/RidgeRegressionModel.pkl")
 
 #cross validation score
 
